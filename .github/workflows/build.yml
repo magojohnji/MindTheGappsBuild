@@ -67,7 +67,7 @@ jobs:
             done
           fi
           sed -i -e 's/_%H%M%S//' build/gapps.sh
-          echo "date=$(date -u +%Y%m%d)" >> $GITHUB_ENV
+          echo "date=$(date -u +%Y%m%d)UTC" >> $GITHUB_ENV
           ./build/gapps.sh ${{ matrix.arch }}
           sed -i -e 's@/home/runner/work/MindTheGappsBuilder/MindTheGappsBuilder/vendor_gapps/out/@@' out/MindTheGapps-${{ matrix.androidv }}-${{ matrix.arch }}-$(date -u +%Y%m%d).zip.md5sum
 
