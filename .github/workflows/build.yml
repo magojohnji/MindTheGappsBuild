@@ -83,7 +83,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: github.event.inputs.release == 'true'
         with:
-          tag_name: Test
+          tag_name: ${{ env.date }}
           draft: false
           prerelease: false
           files: vendor_gapps/out/*
