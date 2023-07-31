@@ -81,7 +81,7 @@ jobs:
           if-no-files-found: warn
       
       - id: tag_name
-        run: echo "version=$(date -u %Y%m%d)" >> "$GITHUB_OUTPUT"
+        run: echo "version=$(date -u +%Y%m%d)" >> "$GITHUB_OUTPUT"
       
       - name: Release
         uses: softprops/action-gh-release@v1
