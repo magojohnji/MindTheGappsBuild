@@ -79,12 +79,15 @@ jobs:
           name: Built_MindTheGapps-${{ matrix.androidv }}-${{ matrix.arch }}-${{ env.date }}
           path: vendor_gapps/out/*
           if-no-files-found: warn
-
+      
+      - id: tag_name
+        run: echo "version=$(date -u %Y%m%d)" >> "$GITHUB_OUTPUT"
+      
       - name: Release
         uses: softprops/action-gh-release@v1
         if: github.event.inputs.release == 'true'
         with:
-          tag_name: Build-${{ env.date }}
+          tag_name: Build-${{ steps.tag_name.outputs.version }}
           draft: false
           prerelease: false
           files: vendor_gapps/out/*
