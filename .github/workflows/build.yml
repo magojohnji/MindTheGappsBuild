@@ -1,13 +1,10 @@
 name: Build MindTheGapps
 
 on:
+  schedule:
+    - cron: '0  0 * * *'
   workflow_dispatch:
-    inputs:
-      release:
-        description: "Release"
-        required: true
-        default: false
-        type: boolean
+
 permissions:
   contents: write
 jobs:
@@ -73,7 +70,6 @@ jobs:
           sed -i -e 's@/home/runner/work/MindTheGappsBuilder/MindTheGappsBuilder/vendor_gapps/out/@@' out/MindTheGapps-${{ matrix.androidv }}-${{ matrix.arch }}-$(date -u +%Y%m%d).zip.md5sum
 
       - name: Upload
-        if: github.event.inputs.release != 'true'
         uses: actions/upload-artifact@v3
         with:
           name: Built_MindTheGapps-${{ matrix.androidv }}-${{ matrix.arch }}-${{ env.date }}
@@ -85,7 +81,6 @@ jobs:
       
       - name: Release
         uses: softprops/action-gh-release@v1
-        if: github.event.inputs.release == 'true'
         with:
           tag_name: Build-${{ steps.tag_name.outputs.version }}
           draft: false
